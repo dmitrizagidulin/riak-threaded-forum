@@ -8,7 +8,12 @@ class ApplicationController < ActionController::Base
   # Returns current logged in user or nil (session helper method)
   # @return [User, nil] current logged in user, or nil
   def current_user
-    nil
+    return @current_user if defined? @current_user
+    return nil unless session[:current_user_key]
+    @current_user = User.find(session[:current_user_key])
+    return @current_user unless @current_user.nil?
+
+    return session[:current_user_key] = nil
   end
   
   # Returns true if a user is logged in, redirects to <tt>/login</tt> otherwise
