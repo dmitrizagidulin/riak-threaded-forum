@@ -6,9 +6,9 @@ class SessionsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "Logging in should redirect user to /home" do
-    get :create
-    assert_response :redirect
+  test "Logging in with empty username/password should redirect user to /login" do
+    post :create, user: {}
+    assert_redirected_to login_path
   end
 
   test "Logging out should redirect user to Welcome index" do
