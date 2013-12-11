@@ -1,9 +1,9 @@
 require 'test_helper'
 
 class UserHomeControllerTest < ActionController::TestCase
-  test "should get index" do
+  test "non-logged in users should get redirected to login page" do
     get :index
-    assert_response :success
+    assert_redirected_to login_path
   end
 
 end
