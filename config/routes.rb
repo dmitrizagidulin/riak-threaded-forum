@@ -1,5 +1,7 @@
 RiakThreadedForum::Application.routes.draw do
   get "user_home/index"
+  get "home" => "user_home#index"
+  
   get "welcome/index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
