@@ -1,4 +1,7 @@
 RiakThreadedForum::Application.routes.draw do
+  get "sessions/new"
+  get "sessions/create"
+  get "sessions/destroy"
   get "user_home/index"
   get "home" => "user_home#index"
   
