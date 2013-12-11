@@ -1,19 +1,18 @@
 require 'test_helper'
 
 class SessionsControllerTest < ActionController::TestCase
-  test "should get new" do
+  test "Following the /login link should result in login form" do
     get :new
     assert_response :success
   end
 
-  test "should get create" do
+  test "Logging in should redirect user to /home" do
     get :create
-    assert_response :success
+    assert_response :redirect
   end
 
-  test "should get destroy" do
+  test "Logging out should redirect user to Welcome index" do
     get :destroy
-    assert_response :success
+    assert_response :redirect
   end
-
 end
