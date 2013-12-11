@@ -1,11 +1,13 @@
 RiakThreadedForum::Application.routes.draw do
-  get "sessions/new"
-  get "sessions/create"
-  get "sessions/destroy"
-  get "user_home/index"
-  get "home" => "user_home#index"
-  
+  controller :sessions do
+    get 'login' => :new
+    post 'login' => :create
+    get 'logout' => :destroy
+  end
   get "welcome/index"
+  get "home" => "user_home#index"
+  get "user_home/index"
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
