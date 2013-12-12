@@ -12,6 +12,6 @@ using [RiakJson](https://github.com/basho-labs/riak_json) ([Riak](https://github
  - Riak 2.0+ (with Search and [RiakJson](https://github.com/basho-labs/riak_json) enabled)
 
 ## Unit testing
-```bash
+```
 rake test
 ```
