@@ -60,6 +60,9 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.25.1)
     minitest (4.7.5)
+    minitest-spec-rails (4.7.6)
+      minitest (~> 4.7)
+      rails (>= 3.0, < 4.1)
     multi_json (1.8.2)
     polyglot (0.3.3)
     rack (1.5.2)
@@ -125,6 +128,7 @@ DEPENDENCIES
   bcrypt-ruby (~> 3.1.2)
   jbuilder (~> 1.2)
   jquery-rails
+  minitest-spec-rails
   rails (= 4.0.2)
   riak_json!
   sass-rails (~> 4.0.0)
