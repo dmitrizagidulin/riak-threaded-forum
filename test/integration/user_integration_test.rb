@@ -20,10 +20,16 @@
 
 require 'test_helper'
 
-class UserTest < ActiveSupport::TestCase
-  describe "a User" do
-    it "exists" do
-      user = User.new
-    end
+describe "a User" do
+  it "implements User.find_by_username" do
+    # Ensure that a user object exists in the collection
+    user = User.new username: 'earl', password: '1234', password_confirmation: '1234'
+    user.key = 'earl-123'
+    user.save
+    
+    
+    
+    found_user = User.find_by_username('earl')
+    found_user.key.must_equal 'earl-123'
   end
 end
