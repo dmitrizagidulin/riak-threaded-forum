@@ -27,8 +27,6 @@ describe "a User" do
     user.key = 'earl-123'
     user.save
     
-    
-    
     found_user = User.find_by_username('earl')
     found_user.key.must_equal 'earl-123'
   end

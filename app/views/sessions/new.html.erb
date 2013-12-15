@@ -1,2 +1,25 @@
-<h1>Sessions#new</h1>
-<p>Find me in app/views/sessions/new.html.erb</p>
+<%= form_tag "/login", class: 'form-horizontal' do %>
+
+<% if flash[:alert] %>
+    <p id="notice"><%= flash[:alert] %></p> 
+<% end %>
+
+  <div class="control-group">
+    <label class="control-label" for="username">Username:</label>
+    <div class="controls">
+      <%= text_field_tag :username, params[:username], :class => "login_field" %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label" for="password">Password:</label>
+    <div class="controls">
+      <%= password_field_tag :password, params[:password], :class => "login_field" %>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <%= submit_tag "Log In", class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>
