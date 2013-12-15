@@ -13,6 +13,6 @@ class SessionsControllerTest < ActionController::TestCase
 
   test "Logging out should redirect user to Welcome index" do
     get :destroy
-    assert_response :redirect
+    assert_redirected_to welcome_index_path
   end
 end

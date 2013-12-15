@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
   # Logs out the user
   def destroy
     session.delete(:current_user)
-    redirect_to '/login', alert: "Logged out."
+    redirect_to welcome_index_path, alert: "Logged out."
   end
   
   private
