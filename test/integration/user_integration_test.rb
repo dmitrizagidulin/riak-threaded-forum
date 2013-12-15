@@ -29,5 +29,6 @@ describe "a User" do
     
     found_user = User.find_by_username('earl')
     found_user.key.must_equal 'earl-123'
+    found_user.must_be_kind_of User, "find_by_username must instantiate User class, not document"
   end
 end
