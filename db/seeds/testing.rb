@@ -20,6 +20,6 @@
 
 # Seed Users collection
 puts "Seeding Users..."
-user = User.new(username: 'registered_user', password: '12345', password_confirmation: '12345')
+user = User.new(username: 'registered_user', password_digest: BCrypt::Password.create('12345'))
 user.key = 1
 user.save

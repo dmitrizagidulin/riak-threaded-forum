@@ -10,8 +10,8 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by_username(user_login_params[:username])
     if user and user.authenticate(user_login_params[:password])
-      session[:current_user] = user.key
-      redirect_to user_home_index_url
+      session[:current_user_key] = user.key
+      redirect_to '/home'
     else
       redirect_to login_url, alert: "Invalid user/password combination" 
     end
@@ -19,13 +19,13 @@ class SessionsController < ApplicationController
 
   # Logs out the user
   def destroy
-    session.delete(:current_user)
+    session.delete(:current_user_key)
     redirect_to welcome_index_path, alert: "Logged out."
   end
   
   private
     # Whitelist for user login parameters
     def user_login_params
-      params[:user].permit(:username, :password)
+      params.permit(:username, :password)
     end
 end
