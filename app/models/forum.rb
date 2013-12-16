@@ -18,14 +18,10 @@
 ##
 ## -------------------------------------------------------------------
 
-require 'test_helper'
-
-class ForumTest < ActiveSupport::TestCase
-  describe "a Forum" do
-    it "exists" do
-      forum = Forum.new name: 'Book Club Discussions'
-      assert forum.active, "Forums should be active by default"
-      
-    end
-  end
+class Forum
+  include RiakJson::ActiveDocument
+  include ActiveModel::Validations
+  
+  attribute :name, String
+  attribute :active, Boolean, default: true
 end
