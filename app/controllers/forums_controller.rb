@@ -5,6 +5,8 @@ class ForumsController < ApplicationController
   # GET /forums.json
   def index
     @forums = Forum.all
+    @active_forums = @forums.select {|f| f.active? }
+    @inactive_forums = @forums.reject {|f| f.active? }
   end
 
   # GET /forums/1

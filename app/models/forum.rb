@@ -25,6 +25,10 @@ class Forum
   attribute :name, String
   attribute :active, String, default: 'true'
   
+  def active?
+    self.active == 'true'
+  end
+  
   def self.all
     self.all_for_field(:active)
   end
