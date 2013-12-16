@@ -1,5 +1,6 @@
-<h2>Forum: <%= @forum.name %></h2>
+<%= link_to '< Forums List', forums_path, class: 'btn btn-small' %> |
+<%= link_to 'Edit Forum', edit_forum_path(@forum), class: 'btn btn-small' %> 
+
+<h4>Forum: <%= @forum.name %></h4>
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_forum_path(@forum) %> |
-<%= link_to 'Back', forums_path %>
