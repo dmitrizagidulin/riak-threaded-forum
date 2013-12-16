@@ -31,5 +31,10 @@ class Forum
   
   def self.all
     self.all_for_field(:active)
+#    begin
+#      self.all_for_field(:active)
+#    rescue RestClient::InternalServerError => e
+#      puts e.inspect
+#    end
   end
 end
