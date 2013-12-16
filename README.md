@@ -14,7 +14,14 @@ using [RiakJson](https://github.com/basho-labs/riak_json) ([Riak](https://github
  - [riak_json-active_model](https://github.com/dmitrizagidulin/rj-activemodel) gem installed locally
 
 ## Unit testing
-All tests:
+Make sure a RiakJson server is listening at ```http://localhost:8098``` 
+(required for integration tests).
+
+Seed the collections with required records:
+```
+rake db:seed
+```
+Run all tests:
 ```
 rake test
 ```
