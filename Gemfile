@@ -3,8 +3,8 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
 
-gem 'riak_json', :path => '~/b/riak_json_ruby_client'
-gem 'riak_json-active_model', :path => '~/b/rj-activemodel'
+gem 'riak_json'
+gem 'riak_json-active_model'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
