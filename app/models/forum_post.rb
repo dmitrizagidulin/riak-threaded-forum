@@ -28,6 +28,11 @@ class ForumPost
   attribute :created_by, String  # Key of user who created this post
   attribute :reply_to, String, :default => ""  # Optional key of parent forum post, can be nil
   
+  def username
+    user = User.find(self.created_by)
+    user.username
+  end
+  
   def self.all
     self.all_for_field('name')
   end

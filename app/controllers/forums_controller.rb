@@ -12,6 +12,7 @@ class ForumsController < ApplicationController
   # GET /forums/1
   # GET /forums/1.json
   def show
+    @posts = @forum.all_posts
   end
 
   # GET /forums/new
