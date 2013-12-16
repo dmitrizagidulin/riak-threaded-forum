@@ -23,5 +23,9 @@ class Forum
   include ActiveModel::Validations
   
   attribute :name, String
-  attribute :active, Boolean, default: true
+  attribute :active, String, default: 'true'
+  
+  def self.all
+    self.all_for_field(:active)
+  end
 end

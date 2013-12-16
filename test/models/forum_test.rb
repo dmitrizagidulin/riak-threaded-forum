@@ -24,8 +24,9 @@ class ForumTest < ActiveSupport::TestCase
   describe "a Forum" do
     it "exists" do
       forum = Forum.new name: 'Book Club Discussions'
-      assert forum.active, "Forums should be active by default"
+      assert forum.active.must_equal 'true', "Forums should be active by default"
       
+      Forum.collection_name.must_equal 'forums'
     end
   end
 end

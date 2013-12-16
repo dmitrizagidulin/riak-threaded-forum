@@ -27,3 +27,9 @@ user.save
 user = User.new username: 'earl', password: '1234', password_confirmation: '1234'
 user.key = 'earl-123'
 user.save
+
+# Seed Forums collection
+puts "Seeding Forums..."
+forum = Forum.new(name: 'Distributed Systems Discussions')
+forum.key = 'forum-1'
+forum.save
