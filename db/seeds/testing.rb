@@ -23,3 +23,7 @@ puts "Seeding Users..."
 user = User.new(username: 'registered_user', password_digest: BCrypt::Password.create('12345'))
 user.key = 1
 user.save
+
+user = User.new username: 'earl', password: '1234', password_confirmation: '1234'
+user.key = 'earl-123'
+user.save

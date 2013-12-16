@@ -22,11 +22,6 @@ require 'test_helper'
 
 describe "a User" do
   it "implements User.find_by_username" do
-    # Ensure that a user object exists in the collection
-    user = User.new username: 'earl', password: '1234', password_confirmation: '1234'
-    user.key = 'earl-123'
-    user.save
-    
     found_user = User.find_by_username('earl')
     found_user.key.must_equal 'earl-123'
     found_user.must_be_kind_of User, "find_by_username must instantiate User class, not document"
