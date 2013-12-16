@@ -10,6 +10,8 @@ using [RiakJson](https://github.com/basho-labs/riak_json) ([Riak](https://github
  - Ruby 1.9+
  - Rails 4
  - Riak 2.0+ (with Search and [RiakJson](https://github.com/basho-labs/riak_json) enabled)
+ - [riak_json_ruby_client](https://github.com/basho-labs/riak_json_ruby_client) gem installed locally
+ - [riak_json-active_model](https://github.com/dmitrizagidulin/rj-activemodel) gem installed locally
 
 ## Unit testing
 All tests:
