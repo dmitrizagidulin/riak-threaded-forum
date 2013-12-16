@@ -31,4 +31,9 @@ class ForumPost
   def self.all
     self.all_for_field('name')
   end
+  
+  def self.all_for_forum(forum_key)
+    query = { :forum_key => forum_key }.to_json
+    self.where(query)
+  end
 end

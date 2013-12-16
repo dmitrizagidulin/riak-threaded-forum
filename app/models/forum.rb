@@ -29,6 +29,10 @@ class Forum
     self.active == 'true'
   end
   
+  def all_posts
+    ForumPost.all_for_forum(self.key)
+  end
+  
   def self.all
     self.all_for_field(:active)
 #    begin
