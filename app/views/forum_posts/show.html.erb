@@ -1,4 +1,17 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_forum_post_path(@forum_post) %> |
-<%= link_to 'Back', forum_posts_path %>
+< <%= link_to @forum.name, @forum %>
+
+<h4>Post: <%= @forum_post.name %></h4>
+<%= link_to 'Edit', edit_forum_post_path(@forum_post), class: 'btn' %>
+
+<dl class="dl-horizontal">
+  <dt>Posted By:</dt>
+  <dd>
+    <%= @forum_post.username %>
+  </dd>
+</dl>
+
+<div class="post_body" style="background-color: #CCC; border: 1px solid black; padding: 1em;">
+<%= @forum_post.body %>
+</div>

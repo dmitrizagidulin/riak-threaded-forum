@@ -8,6 +8,15 @@ RiakThreadedForum::Application.routes.draw do
   get "home" => "user_home#index"
   get "user_home/index"
   
+  controller :forum_posts do
+    post 'forums/:forum_id/posts' => :create
+    get 'forums/:forum_id/posts/:id' => :show
+  end
+  
+  controller :forums do
+    get 'forums/:id/posts' => :show
+  end
+  
   resources :forums
   resources :forum_posts
   
