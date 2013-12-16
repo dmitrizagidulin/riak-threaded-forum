@@ -1,4 +1,4 @@
-<%= form_for(@forum) do |f| %>
+<%= form_for(@forum, :html => { :class => "form-horizontal"}) do |f| %>
   <% if @forum.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@forum.errors.count, "error") %> prohibited this forum from being saved:</h2>
@@ -11,7 +11,25 @@
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="control-group">
+    <%= f.label :name, class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :name, :class=> "forum input-xxlarge" %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <div class="controls form-inline">
+      <%= f.radio_button :active, 'true' %> 
+      <%= f.label :active, 'Active', :value => 'true' %>
+      <%= f.radio_button :active, 'false' %>
+      <%= f.label :active, 'Inactive', :value => 'false' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <div class="forums controls">
+      <%= f.submit %>
+    </div>
   </div>
 <% end %>

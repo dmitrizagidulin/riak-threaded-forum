@@ -1,10 +1,10 @@
-<h1>Listing forums</h1>
+<h2>Available Forums</h2>
 
-<table>
+<table class="table table-hover">
   <thead>
     <tr>
       <th></th>
-      <th></th>
+      <th>Forum</th>
       <th></th>
     </tr>
   </thead>
@@ -12,9 +12,13 @@
   <tbody>
     <% @forums.each do |forum| %>
       <tr>
-        <td><%= link_to 'Show', forum %></td>
-        <td><%= link_to 'Edit', edit_forum_path(forum) %></td>
-        <td><%= link_to 'Destroy', forum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="span1">
+          <%= link_to 'Edit', edit_forum_path(forum), class: 'btn btn-mini' %>
+        </td>
+        <td class="span6"><%= link_to forum.name, forum %></td>
+        <td>
+          <%= link_to 'Delete', forum, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-mini btn-danger' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -22,4 +26,4 @@
 
 <br>
 
-<%= link_to 'New Forum', new_forum_path %>
+<%= link_to 'New Forum', new_forum_path, class: 'btn' %>
