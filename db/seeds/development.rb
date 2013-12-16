@@ -33,3 +33,11 @@ puts "Seeding Forums..."
 forum = Forum.new(name: 'Distributed Systems Discussions')
 forum.key = 'forum-1'
 forum.save
+
+# Seed ForumPosts collection
+puts "Seeding Forum Posts..."
+forum_post = ForumPost.new name: 'Test Post'
+forum_post.key = 'post-123'
+forum_post.forum_key = forum.key
+forum_post.created_by = user.key
+forum_post.save

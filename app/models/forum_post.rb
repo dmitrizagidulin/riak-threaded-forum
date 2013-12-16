@@ -23,8 +23,12 @@ class ForumPost
   include ActiveModel::Validations
   
   attribute :name, String  # Post title
-  attribute :body, String  # Post body
+  attribute :body, String, :default => ""  # Post body
   attribute :forum_key, String  # Forum to 
   attribute :created_by, String  # Key of user who created this post
-  attribute :reply_to, String  # Optional key of parent forum post, can be nil
+  attribute :reply_to, String, :default => ""  # Optional key of parent forum post, can be nil
+  
+  def self.all
+    self.all_for_field('name')
+  end
 end
