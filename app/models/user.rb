@@ -29,6 +29,10 @@ class User
   
   has_secure_password validations: false
   
+  def self.all
+    self.all_for_field(:username)
+  end
+  
   def self.find_by_username(username)
     return nil if username.blank?
     
