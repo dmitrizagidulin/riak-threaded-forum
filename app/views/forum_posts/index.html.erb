@@ -1,6 +1,6 @@
-<h1>Listing forum_posts</h1>
+<h2>All Forum Posts</h2>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th></th>
@@ -11,10 +11,14 @@
 
   <tbody>
     <% @forum_posts.each do |forum_post| %>
+      <% forum = forum_post.forum %>
       <tr>
-        <td><%= link_to 'Show', forum_post %></td>
-        <td><%= link_to 'Edit', edit_forum_post_path(forum_post) %></td>
-        <td><%= link_to 'Destroy', forum_post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+            <%= link_to 'Edit', edit_forum_post_path(forum_post), class: 'btn btn-mini' %>
+            <%= link_to forum_post.name, forum_post %>
+        </td>
+        <td><%= forum.name if forum %></td>
+        <td><%= link_to 'Destroy', forum_post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-mini btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>
