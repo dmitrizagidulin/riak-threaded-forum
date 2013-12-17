@@ -30,7 +30,11 @@ class ForumPost
   
   def username
     user = User.find(self.created_by)
-    user.username
+    user.username if user
+  end
+  
+  def forum
+    Forum.find(self.forum_key)
   end
   
   def self.all
