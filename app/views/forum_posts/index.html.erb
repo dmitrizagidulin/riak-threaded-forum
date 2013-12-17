@@ -17,13 +17,13 @@
             <%= link_to 'Edit', edit_forum_post_path(forum_post), class: 'btn btn-mini' %>
             <%= link_to forum_post.name, forum_post %>
         </td>
-        <td><%= forum.name if forum %></td>
+        <td>
+            <% if forum %>
+              <%= link_to forum.name, forum %>
+            <% end %>
+        </td>
         <td><%= link_to 'Destroy', forum_post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-mini btn-danger' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Forum post', new_forum_post_path %>
