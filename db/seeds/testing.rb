@@ -19,11 +19,25 @@
 ## -------------------------------------------------------------------
 
 # Seed Users collection
-puts "Seeding Users..."
-user = User.new(username: 'registered_user', password_digest: BCrypt::Password.create('12345'))
-user.key = 1
+puts "Seeding Users for env: #{Rails.env}"
+user = User.new(username: 'registered_user', password: '12345', password_digest: BCrypt::Password.create('12345'))
+user.key = 'user-1'
 user.save
 
 user = User.new username: 'earl', password: '1234', password_confirmation: '1234'
 user.key = 'earl-123'
 user.save
+
+# Seed Forums collection
+puts "Seeding Forums..."
+forum = Forum.new(name: 'Distributed Systems Discussions')
+forum.key = 'forum-1'
+forum.save
+
+# Seed ForumPosts collection
+puts "Seeding Forum Posts..."
+forum_post = ForumPost.new name: 'Test Post'
+forum_post.key = 'post-123'
+forum_post.forum_key = forum.key
+forum_post.created_by = user.key
+forum_post.save
