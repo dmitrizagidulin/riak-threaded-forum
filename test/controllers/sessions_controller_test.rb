@@ -12,7 +12,7 @@ class SessionsControllerTest < ActionController::TestCase
   end
 
   test "Logging in with valid username/password should redirect user to /home" do
-    post :create, { username: 'registered_user', password: '12345' }
+    post :create, { username: registered_user.username, password: registered_user.password }
     assert_redirected_to '/home'
   end
   

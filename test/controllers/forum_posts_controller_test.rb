@@ -2,6 +2,8 @@ require 'test_helper'
 
 class ForumPostsControllerTest < ActionController::TestCase
   setup do
+    @forum = Forum.new(name: 'Distributed Systems Discussions')
+    @forum.key = 'forum-1'
     @forum_post = ForumPost.new name: 'Test Post'
     @forum_post.key = 'post-123'
     @forum_post
@@ -14,7 +16,8 @@ class ForumPostsControllerTest < ActionController::TestCase
   end
 
   test "should get new" do
-    get :new
+    login_as(registered_user.key)
+    get :new, {:forum_key => @forum.key }
     assert_response :success
   end
 
@@ -30,6 +33,7 @@ class ForumPostsControllerTest < ActionController::TestCase
   end
 
   test "should get edit" do
+    login_as(registered_user.key)
     get :edit, id: @forum_post
     assert_response :success
   end
