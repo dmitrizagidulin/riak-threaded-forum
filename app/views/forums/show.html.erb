@@ -4,7 +4,7 @@
 <h4>Forum: <%= @forum.name %></h4>
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'New Post', new_forum_post_path, class: 'btn' %>
+<%= link_to 'New Post', "/forums/#{@forum.key}/posts/new", class: 'btn' %>
 
 <% @posts.each do | post | %>
 <div class="post-head">

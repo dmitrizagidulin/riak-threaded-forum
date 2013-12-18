@@ -41,7 +41,7 @@ class ForumsControllerTest < ActionController::TestCase
   end
 
 #  test "should destroy forum" do
-#    delete :destroy, id: TEST_FORUM_ID
+#    delete :destroy, id: TEST_FORUM_KEY
 #
 #    assert_redirected_to forums_path
 #  end

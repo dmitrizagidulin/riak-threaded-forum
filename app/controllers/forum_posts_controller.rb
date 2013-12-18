@@ -10,22 +10,29 @@ class ForumPostsController < ApplicationController
   # GET /forum_posts/1
   # GET /forum_posts/1.json
   def show
+    puts @forum_post.inspect
     @forum = Forum.find(@forum_post.forum_key)
   end
 
   # GET /forum_posts/new
   def new
     @forum_post = ForumPost.new
+    @forum = Forum.find(params[:forum_key])
+    @current_user = current_user
   end
 
   # GET /forum_posts/1/edit
   def edit
+    @forum = Forum.find(@forum_post.forum_key)
+    @current_user = current_user
   end
 
   # POST /forum_posts
   # POST /forum_posts.json
   def create
     @forum_post = ForumPost.new(forum_post_params)
+    @forum_post.forum_key = params[:forum_post][:forum_key]
+    @forum_post.created_by = current_user.key
 
     respond_to do |format|
       if @forum_post.save

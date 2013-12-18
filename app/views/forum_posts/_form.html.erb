@@ -1,4 +1,13 @@
+<dl class="dl-horizontal">
+  <dt>Forum:</dt>
+  <dd><%= @forum.name %></dd>
+  <dt>Author:</dt>
+  <dd><%= @current_user.username %></dd>
+</dl>
+
 <%= form_for(@forum_post, :html => { :class => "form-horizontal"}) do |f| %>
+  <%= f.hidden_field :forum_key, value: @forum.key %>
+  
   <% if @forum_post.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@forum_post.errors.count, "error") %> prohibited this forum_post from being saved:</h2>

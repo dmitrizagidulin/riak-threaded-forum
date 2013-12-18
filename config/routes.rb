@@ -9,8 +9,9 @@ RiakThreadedForum::Application.routes.draw do
   get "user_home/index"
   
   controller :forum_posts do
-    post 'forums/:forum_id/posts' => :create
-    get 'forums/:forum_id/posts/:id' => :show
+    get 'forums/:forum_key/posts/new' => :new
+    post 'forums/:forum_key/posts' => :create
+    get 'forums/:forum_key/posts/:id' => :show
   end
   
   controller :forums do
