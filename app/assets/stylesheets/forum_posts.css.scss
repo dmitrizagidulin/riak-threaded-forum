@@ -2,6 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.post-head {
+    margin-top: 2em;
+}
+.post-name {
+    font-weight: bold;
+    font-size: 110%;
+}
 .post-body {
     background-color: #EEE; 
     border: 1px solid black; 

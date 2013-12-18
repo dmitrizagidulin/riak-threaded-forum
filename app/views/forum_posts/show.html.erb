@@ -5,13 +5,14 @@
 <h4>Post: <%= @forum_post.name %></h4>
 <%= link_to 'Edit', edit_forum_post_path(@forum_post), class: 'btn' %>
 
-<dl class="dl-horizontal">
-  <dt>Posted By:</dt>
-  <dd>
-    <%= @forum_post.username %>
-  </dd>
-</dl>
-
-<div class="post-body">
-<%= @forum_post.body %>
+<div class="post-head">
+<div class="post-name"><%= @forum_post.name %></div>
+<span class="muted small"><%= link_to '#', "/forums/#{@forum.key}/posts/#{@forum_post.key}" %></span>
+<span class="post-author-label muted">Posted by:</span>
+<span class="post-author muted"><%= @forum_post.username %></span>
+</div>
+<div class="post-contents">
+    <div class="post-body">
+    <%= @forum_post.body %>
+    </div>
 </div>
