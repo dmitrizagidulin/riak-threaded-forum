@@ -10,6 +10,7 @@ RiakThreadedForum::Application.routes.draw do
   
   controller :forum_posts do
     get 'forums/:forum_key/posts/new' => :new
+    get 'forums/:forum_key/posts/:reply_to_post/reply' => :new
     post 'forums/:forum_key/posts' => :create
     get 'forums/:forum_key/posts/:id' => :show
   end

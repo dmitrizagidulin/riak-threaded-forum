@@ -17,5 +17,8 @@
 	<div class="post-body">
 	<%= post.body %>
 	</div>
+	<div class="post-actions">
+	<%= link_to 'reply', "/forums/#{@forum.key}/posts/#{post.key}/reply", class: 'btn btn-mini' %>
+	</div>
 </div>
 <% end %>

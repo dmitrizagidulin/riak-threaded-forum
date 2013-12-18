@@ -10,7 +10,6 @@ class ForumPostsController < ApplicationController
   # GET /forum_posts/1
   # GET /forum_posts/1.json
   def show
-    puts @forum_post.inspect
     @forum = Forum.find(@forum_post.forum_key)
   end
 
@@ -18,6 +17,7 @@ class ForumPostsController < ApplicationController
   def new
     @forum_post = ForumPost.new
     @forum = Forum.find(params[:forum_key])
+    @reply_to_post = ForumPost.find(params[:reply_to_post])
     @current_user = current_user
   end
 

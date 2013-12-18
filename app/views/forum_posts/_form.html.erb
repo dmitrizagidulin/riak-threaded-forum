@@ -3,10 +3,15 @@
   <dd><%= @forum.name %></dd>
   <dt>Author:</dt>
   <dd><%= @current_user.username %></dd>
+<% if @reply_to_post %>
+  <dt>Reply To:</dt>
+  <dd><%= @reply_to_post.name %></dd>
+<% end %>
 </dl>
 
 <%= form_for(@forum_post, :html => { :class => "form-horizontal"}) do |f| %>
   <%= f.hidden_field :forum_key, value: @forum.key %>
+  <%= f.hidden_field :reply_to_post, value: @forum_post.reply_to %>
   
   <% if @forum_post.errors.any? %>
     <div id="error_explanation">
