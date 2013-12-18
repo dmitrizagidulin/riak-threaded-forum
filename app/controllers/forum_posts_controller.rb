@@ -11,6 +11,7 @@ class ForumPostsController < ApplicationController
   # GET /forum_posts/1.json
   def show
     @forum = Forum.find(@forum_post.forum_key)
+    @author_name = @forum_post.username
   end
 
   # GET /forum_posts/new

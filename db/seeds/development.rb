@@ -40,4 +40,5 @@ forum_post = ForumPost.new name: 'Test Post'
 forum_post.key = 'post-123'
 forum_post.forum_key = forum.key
 forum_post.created_by = user.key
+forum_post.body = 'Test post contents are updated via unit tests, do not be alarmed.'
 forum_post.save

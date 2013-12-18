@@ -6,6 +6,7 @@ class ForumPostsControllerTest < ActionController::TestCase
     @forum.key = 'forum-1'
     @forum_post = ForumPost.new name: 'Test Post'
     @forum_post.key = 'post-123'
+    @forum_post.body = 'Test post contents are updated via unit tests, do not be alarmed.'
     @forum_post
   end
 
@@ -18,6 +19,8 @@ class ForumPostsControllerTest < ActionController::TestCase
   test "should get new" do
     login_as(registered_user.key)
     get :new, {:forum_key => @forum.key }
+    assert_not_nil assigns(:forum), "A post can only be made to a forum"
+    assert_not_nil assigns(:current_user)
     assert_response :success
   end
 
@@ -29,6 +32,8 @@ class ForumPostsControllerTest < ActionController::TestCase
 
   test "should show forum_post" do
     get :show, id: @forum_post
+    assert_not_nil assigns(:forum), "A post can only be made to a forum"
+    assert_not_nil assigns(:author_name)
     assert_response :success
   end
 
