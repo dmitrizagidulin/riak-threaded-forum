@@ -22,8 +22,14 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   describe "a User" do
-    it "exists" do
+    it "must have a username and password to be valid" do
       user = User.new
+      refute user.valid?(:create), "New users should not be valid (require username and password fields)"
+      user.password = '1234'
+      user.password_confirmation = '1234'
+      user.password_digest = BCrypt::Password.create('1234')
+      user.username = 'test_user'
+      assert user.valid?(:create)
     end
   end
 end

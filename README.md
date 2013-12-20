@@ -10,8 +10,9 @@ using [RiakJson](https://github.com/basho-labs/riak_json) ([Riak](https://github
  - Ruby 1.9+
  - Rails 4
  - Riak 2.0+ (with Search and [RiakJson](https://github.com/basho-labs/riak_json) enabled)
- - [riak_json_ruby_client](https://github.com/basho-labs/riak_json_ruby_client) gem installed locally
- - [riak_json-active_model](https://github.com/dmitrizagidulin/rj-activemodel) gem installed locally
+ - [riak_json_ruby_client](https://github.com/basho-labs/riak_json_ruby_client) and
+   [riak_json-active_model](https://github.com/dmitrizagidulin/rj-activemodel) gems installed locally.
+   (See [rj-activemodel Installation section](https://github.com/dmitrizagidulin/rj-activemodel#installation) for instructions on both)
 
 ## Unit testing
 Make sure a RiakJson server is listening at ```http://localhost:8098``` 

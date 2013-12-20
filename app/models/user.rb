@@ -24,11 +24,14 @@ class User
   include ActiveModel::SecurePassword
   
   attribute :username, String
-  attribute :password, String
   attribute :password_digest, String
-  
-  has_secure_password validations: false
-  
+
+  validates_presence_of :username
+
+  # ActiveModel#has_secure_password automatically adds presence validations on :create 
+  # for :password, :password_confirmation and :password_digest
+  has_secure_password
+
   def self.all
     self.all_for_field(:username)
   end
