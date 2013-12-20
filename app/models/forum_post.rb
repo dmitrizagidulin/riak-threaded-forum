@@ -26,7 +26,13 @@ class ForumPost
   attribute :body, String, :default => ""  # Post body
   attribute :forum_key, String  # Forum to 
   attribute :created_by, String  # Key of user who created this post
-  attribute :reply_to, String, :default => ""  # Optional key of parent forum post, can be nil
+
+  # Threading / reply-to attributes
+  attribute :reply_to, String, :default => ""  # Optional key of parent forum post
+  attribute :thread_path, String, :default => ""  # Used for reconstructing discussion tree structure
+  attribute :indent_level, Integer, :default => 0
+  
+  validates_presence_of :name, :forum_key, :created_by
   
   def username
     user = User.find(self.created_by)

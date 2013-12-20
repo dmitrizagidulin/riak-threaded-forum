@@ -25,6 +25,8 @@ class Forum
   attribute :name, String
   attribute :active, String, default: 'true'
   
+  validates_presence_of :name
+  
   def active?
     self.active == 'true'
   end
