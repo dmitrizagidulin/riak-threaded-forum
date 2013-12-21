@@ -26,7 +26,7 @@ class ForumPostsControllerTest < ActionController::TestCase
 
   test "should reply to a post" do
     login_as(registered_user.key)
-    get :new, {:forum_key => @forum.key, :reply_to_post => @forum_post.key }
+    get :reply, {:reply_to_post => @forum_post.key }
     assert_not_nil assigns(:forum), "A post can only be made to a forum"
     assert_not_nil assigns(:current_user)
     assert_not_nil assigns(:reply_to_post)
@@ -49,6 +49,8 @@ class ForumPostsControllerTest < ActionController::TestCase
   test "should get edit" do
     login_as(registered_user.key)
     get :edit, id: @forum_post
+    assert_not_nil assigns(:forum)
+    assert_not_nil assigns(:current_user)
     assert_response :success
   end
 
