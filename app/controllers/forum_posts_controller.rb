@@ -8,6 +8,7 @@ class ForumPostsController < ApplicationController
   end
 
   # GET /forum_posts/1
+  # GET /forums/456/posts/1
   # GET /forum_posts/1.json
   def show
     @forum = Forum.find(@forum_post.forum_key)
@@ -15,13 +16,21 @@ class ForumPostsController < ApplicationController
   end
 
   # GET /forum_posts/new
+  # GET /forums/456/posts/new
   def new
     @forum_post = ForumPost.new
     @forum = Forum.find(params[:forum_key])
-    @reply_to_post = ForumPost.find(params[:reply_to_post])
     @current_user = current_user
   end
 
+  # GET /forums/456/posts/123/reply
+  def reply
+    @reply_to_post = ForumPost.find(params[:reply_to_post])
+    @current_user = current_user
+    @forum_post = ForumPost.reply_to(@reply_to_post, @current_user)
+    @forum = Forum.find(@reply_to_post.forum_key)
+  end
+  
   # GET /forum_posts/1/edit
   def edit
     @forum = Forum.find(@forum_post.forum_key)
@@ -31,9 +40,14 @@ class ForumPostsController < ApplicationController
   # POST /forum_posts
   # POST /forum_posts.json
   def create
-    @forum_post = ForumPost.new(forum_post_params)
-    @forum_post.forum_key = params[:forum_post][:forum_key]
-    @forum_post.created_by = current_user.key
+    reply_to_post_key = params[:forum_post][:reply_to_post]
+    if reply_to_post_key.present?
+      @reply_to_post = ForumPost.find(reply_to_post_key)
+      @forum_post = ForumPost.reply_to(@reply_to_post, current_user, new_reply_params)
+    else
+      @forum_post = ForumPost.new(new_post_params)
+      @forum_post.created_by = current_user.key
+    end
 
     respond_to do |format|
       if @forum_post.save
@@ -50,7 +64,7 @@ class ForumPostsController < ApplicationController
   # PATCH/PUT /forum_posts/1.json
   def update
     respond_to do |format|
-      if @forum_post.update(forum_post_params)
+      if @forum_post.update(update_params)
         format.html { redirect_to @forum_post, notice: 'Forum post was successfully updated.' }
         format.json { head :no_content }
       else
@@ -77,7 +91,15 @@ class ForumPostsController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def forum_post_params
-      params[:forum_post]
+    def new_post_params
+      params[:forum_post].permit(:forum_key, :name, :body)
+    end
+    
+    def new_reply_params
+      params[:forum_post].permit(:reply_to_post, :name, :body)
+    end
+    
+    def update_params
+      params[:forum_post].permit(:name, :body)
     end
 end
