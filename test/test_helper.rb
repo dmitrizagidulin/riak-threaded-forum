@@ -13,4 +13,8 @@ class ActiveSupport::TestCase
   def login_as(user_key)
     session[:current_user_key] = user_key
   end
+  
+  def log_out_current_user
+    session.delete(:current_user_key)
+  end
 end
