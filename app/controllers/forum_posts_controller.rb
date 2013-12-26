@@ -1,4 +1,5 @@
 class ForumPostsController < ApplicationController
+  before_action :require_user, only: [:new, :edit, :update, :destroy, :reply]  # Require login
   before_action :set_forum_post, only: [:show, :edit, :update, :destroy]
 
   # GET /forum_posts

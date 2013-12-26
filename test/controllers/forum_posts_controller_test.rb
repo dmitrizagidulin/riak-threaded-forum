@@ -17,6 +17,10 @@ class ForumPostsControllerTest < ActionController::TestCase
   end
 
   test "should get new" do
+    # Not logged in
+    get :new, {:forum_key => @forum.key }
+    assert_redirected_to login_path
+    # Logged in
     login_as(registered_user.key)
     get :new, {:forum_key => @forum.key }
     assert_not_nil assigns(:forum), "A post can only be made to a forum"
@@ -25,6 +29,10 @@ class ForumPostsControllerTest < ActionController::TestCase
   end
 
   test "should reply to a post" do
+    # Not logged in
+    get :reply, {:reply_to_post => @forum_post.key }
+    assert_redirected_to login_path
+    # Logged in
     login_as(registered_user.key)
     get :reply, {:reply_to_post => @forum_post.key }
     assert_not_nil assigns(:forum), "A post can only be made to a forum"
@@ -47,6 +55,10 @@ class ForumPostsControllerTest < ActionController::TestCase
   end
 
   test "should get edit" do
+    # Not logged in
+    get :edit, id: @forum_post
+    assert_redirected_to login_path
+    # Logged in
     login_as(registered_user.key)
     get :edit, id: @forum_post
     assert_not_nil assigns(:forum)
