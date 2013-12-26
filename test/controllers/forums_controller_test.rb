@@ -14,6 +14,11 @@ class ForumsControllerTest < ActionController::TestCase
   end
 
   test "should get new" do
+    # Not logged in
+    get :new
+    assert_redirected_to login_path
+    # Logged in
+    login_as(registered_user.key)
     get :new
     assert_response :success
   end
@@ -31,12 +36,22 @@ class ForumsControllerTest < ActionController::TestCase
   end
 
   test "should get edit" do
+    # Not logged in
+    get :edit, id: @forum
+    assert_redirected_to login_path
+    # Logged in
+    login_as(registered_user.key)
     get :edit, id: @forum
     assert_response :success
   end
 
   test "should update forum" do
-    patch :update, id: @forum, forum: { name: 'Massively Distributed Systems Discussions' }
+    # Not logged in
+    post :update, id: @forum, forum: { name: 'Massively Distributed Systems Discussions' }
+    assert_redirected_to login_path
+    # Logged in
+    login_as(registered_user.key)
+    post :update, id: @forum, forum: { name: 'Massively Distributed Systems Discussions' }
     assert_redirected_to forum_path(assigns(:forum))
   end
 
