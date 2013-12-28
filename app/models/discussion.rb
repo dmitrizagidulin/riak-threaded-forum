@@ -27,6 +27,7 @@ class Discussion
   attribute :initial_post_key, String  # Key of the first post to this discussion thread
   attribute :created_by, String  # Key of user who created this discussion
   attribute :has_replies, String, default: 'false'
+  attribute :created_at, String, default: proc { DateTime.now.utc.iso8601 }
   
   validates_presence_of :name, :forum_key, :initial_post_key, :created_by
   

@@ -37,6 +37,8 @@ class ForumPost
   attribute :thread_path, String, :default => ""  # Used for reconstructing discussion tree structure
   attribute :indent_level, Integer, :default => 0
   
+  attribute :created_at, String, default: proc { DateTime.now.utc.iso8601 }  # Timestamp
+  
   validates_presence_of :name, :forum_key, :created_by
   
   def forum
