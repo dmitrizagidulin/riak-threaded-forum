@@ -30,6 +30,10 @@ class Forum
     self.active == 'true'
   end
   
+  def all_discussions
+    Discussion.all_for_forum(self.key)
+  end
+  
   def all_posts
     ForumPost.all_for_forum(self.key)
   end

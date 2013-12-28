@@ -62,6 +62,14 @@ class Discussion
     self.all_for_field(:active)
   end
   
+  def self.all_for_forum(forum_key)
+    query = { 
+      :forum_key => forum_key,
+      '$sort' => {'created_at' => 1} 
+    }
+    self.where(query)
+  end
+  
   # Creates a new discussion thread from a new post to a forum
   #
   # @param post_params [Hash] A new post to a forum that starts a thread

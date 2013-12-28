@@ -35,10 +35,13 @@ forum.key = 'forum-1'
 forum.save
 
 # Seed ForumPosts collection
-puts "Seeding Forum Posts..."
-forum_post = ForumPost.new name: 'Test Post'
-forum_post.key = 'post-123'
-forum_post.forum_key = forum.key
-forum_post.created_by = user.key
-forum_post.body = 'Test post contents are updated via unit tests, do not be alarmed.'
+puts "Seeding Forum Discussions and Posts..."
+post_params = { 
+  name: 'Test post that starts a new discussion',
+  body: 'Test post contents are updated via unit tests, do not be alarmed.'
+}
+# Create a new discussion object (and its initial post object)
+discussion = Discussion.new_from_post(post_params, user, forum)
+forum_post = discussion.initial_post
 forum_post.save
+discussion.save

@@ -29,11 +29,10 @@ describe "a Forum" do
     assert forum.persisted?, "A forum loaded from Forum.all() must be marked as persisted"
   end
   
-  it "can list all ForumPosts belonging to it" do
-#    test_forum = 'forum-1'
-#    forum = Forum.find(test_forum)
-#    posts = forum.all_posts
-#    posts.wont_be_empty
-#    posts.first.must_be_kind_of ForumPost
+  it "can list all Discussion threads belonging to it" do
+    forum = sample_forum()
+    discussions = forum.all_discussions
+    discussions.wont_be_empty
+    discussions.first.must_be_kind_of Discussion
   end
 end
