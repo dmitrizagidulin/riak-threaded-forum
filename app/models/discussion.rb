@@ -18,7 +18,7 @@
 ##
 ## -------------------------------------------------------------------
 
-class Forum
+class Discussion
   include RiakJson::ActiveDocument
   
   attribute :name, String
@@ -31,15 +31,10 @@ class Forum
   end
   
   def all_posts
-    ForumPost.all_for_forum(self.key)
+    ForumPost.all_for_discussion(self.key)
   end
   
   def self.all
     self.all_for_field(:active)
-#    begin
-#      self.all_for_field(:active)
-#    rescue RestClient::InternalServerError => e
-#      puts e.inspect
-#    end
   end
 end

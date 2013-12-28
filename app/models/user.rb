@@ -20,7 +20,6 @@
 
 class User
   include RiakJson::ActiveDocument
-  include ActiveModel::Validations
   include ActiveModel::SecurePassword
   
   attribute :username, String

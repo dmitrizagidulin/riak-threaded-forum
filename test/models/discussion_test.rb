@@ -18,28 +18,14 @@
 ##
 ## -------------------------------------------------------------------
 
-class Forum
-  include RiakJson::ActiveDocument
-  
-  attribute :name, String
-  attribute :active, String, default: 'true'
-  
-  validates_presence_of :name
-  
-  def active?
-    self.active == 'true'
-  end
-  
-  def all_posts
-    ForumPost.all_for_forum(self.key)
-  end
-  
-  def self.all
-    self.all_for_field(:active)
-#    begin
-#      self.all_for_field(:active)
-#    rescue RestClient::InternalServerError => e
-#      puts e.inspect
-#    end
+require 'test_helper'
+
+class DiscussionTest < ActiveSupport::TestCase
+  describe "a Discussion Thread" do
+    it "exists" do
+      discussion_name = 'Test discussion'
+      discussion = Discussion.new(name: discussion_name)
+      discussion.name.must_equal discussion_name
+    end
   end
 end
