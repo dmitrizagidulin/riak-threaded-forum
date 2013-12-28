@@ -8,7 +8,7 @@
 
 <% @discussions.each do | discussion | %>
 <div class="post-head">
-<div class="post-name"><%= discussion.name %></div>
+<div class="post-name"><%= link_to discussion.name, "/forums/#{@forum.key}/discussions/#{discussion.key}" %></div>
 <span class="muted small"><%= link_to '#', "/forums/#{@forum.key}/discussions/#{discussion.key}" %></span>
 <span class="post-author-label muted">Posted by:</span>
 <span class="post-author muted"><%= discussion.username %></span>

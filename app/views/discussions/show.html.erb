@@ -1,4 +1,25 @@
+Forum: <%= link_to "#{@forum.name}", @forum %> 
+
+<h4>Discussion: <%= @discussion.name %></h4>
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_discussion_path(@discussion) %> |
-<%= link_to 'Back', discussions_path %>
+
+<% @posts.each do | post | %>
+<div class="post-head">
+<div class="post-name"><%= post.name %></div>
+<span class="muted small"><%= link_to '#', "/forums/#{@forum.key}/discussions/#{@discussion.key}/posts/#{post.key}" %></span>
+<span class="post-author-label muted">Posted by:</span>
+<span class="post-author muted"><%= post.username %></span>
+</div>
+<div class="post-contents">
+  <div class="post-body">
+  <%= post.body %>
+  </div>
+  <div class="post-actions">
+  <%= link_to 'reply', "/forums/#{@forum.key}/discussions/#{@discussion.key}/posts/#{post.key}/reply", class: 'btn btn-mini' %>
+  </div>
+</div>
+<% end %>
+
+<br />
+<%= link_to 'New Reply', "/forums/#{@forum.key}/discussions/#{@discussion.key}/new", class: 'btn' %>

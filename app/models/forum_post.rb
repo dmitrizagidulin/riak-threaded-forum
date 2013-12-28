@@ -72,11 +72,18 @@ class ForumPost
     self.all_for_field('name')
   end
   
-  def self.all_for_forum(forum_key, threaded=true)
-    query = { :forum_key => forum_key }
+  def self.all_for_discussion(discussion_key, threaded=false)
+    query = { :discussion_key => discussion_key }
     if threaded
       query['$sort'] = {'thread_path' => 1}
+    else
+      query['$sort'] = {'created_at' => 1}
     end
+    self.where(query)
+  end
+  
+  def self.all_for_forum(forum_key)
+    query = { :forum_key => forum_key }
     self.where(query)
   end
   
