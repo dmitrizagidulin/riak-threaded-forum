@@ -20,7 +20,6 @@
 
 class ForumPost
   include RiakJson::ActiveDocument
-  include ActiveModel::Validations
   
   # Used for caching the post author's User instance
   # Since this is not a document +attribute+, it will not be serialized to JSON
@@ -59,8 +58,11 @@ class ForumPost
     self.all_for_field('name')
   end
   
-  def self.all_for_forum(forum_key)
+  def self.all_for_forum(forum_key, threaded=true)
     query = { :forum_key => forum_key }
+    if threaded
+      query['$sort'] = {'thread_path' => 1}
+    end
     self.where(query)
   end
   
