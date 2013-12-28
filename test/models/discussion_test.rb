@@ -38,4 +38,22 @@ class DiscussionTest < ActiveSupport::TestCase
       assert discussion.valid?
     end
   end
+  
+  it "belongs to a forum" do
+    discussion = Discussion.new name: 'Test discussion'
+    forum = sample_forum()
+    discussion.forum = forum
+    discussion.forum_key.must_equal forum.key
+  end
+  
+  it "is created by posting to a forum" do
+    forum = sample_forum
+    author = registered_user
+    post = sample_new_post
+    discussion = Discussion.new_from_post(post, author, forum)
+    discussion.name.must_equal post.name
+    discussion.forum_key.must_equal forum.key
+    discussion.created_by.must_equal author.key
+    discussion.initial_post_key.must_equal post.key
+  end
 end

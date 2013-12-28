@@ -37,12 +37,31 @@ class Discussion
   def all_posts
     ForumPost.all_for_discussion(self.key)
   end
+
+  def forum=(forum)
+    self.forum_key = forum.key
+  end
+  
+  def has_replies?
+    self.has_replies == 'true'
+  end
   
   def self.all
     self.all_for_field(:active)
   end
   
-  def has_replies?
-    self.has_replies == 'true'
+  # Creates a new discussion thread from a new post to a forum
+  #
+  # @param post [ForumPost] A new post to a forum that starts a thread
+  # @param author [User] Author of post (usually current logged in user)
+  # @param forum [Forum] Forum instance to which this discussion belongs
+  # @return [Discussion]
+  def self.new_from_post(post, author, forum)
+    discussion = Discussion.new
+    discussion.name = post.name
+    discussion.forum = forum
+    discussion.created_by = author.key
+    discussion.initial_post_key = post.key
+    discussion
   end
 end
