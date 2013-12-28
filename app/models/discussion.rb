@@ -23,8 +23,12 @@ class Discussion
   
   attribute :name, String
   attribute :active, String, default: 'true'
+  attribute :forum_key, String
+  attribute :initial_post_key, String  # Key of the first post to this discussion thread
+  attribute :created_by, String  # Key of user who created this discussion
+  attribute :has_replies, String, default: 'false'
   
-  validates_presence_of :name
+  validates_presence_of :name, :forum_key, :initial_post_key, :created_by
   
   def active?
     self.active == 'true'
@@ -36,5 +40,9 @@ class Discussion
   
   def self.all
     self.all_for_field(:active)
+  end
+  
+  def has_replies?
+    self.has_replies == 'true'
   end
 end

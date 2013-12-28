@@ -30,7 +30,7 @@ class ForumPost
   # Document Attributes
   attribute :name, String  # Post title
   attribute :body, String, :default => ""  # Post body
-  attribute :forum_key, String  # Forum to 
+  attribute :forum_key, String  # Forum to which this was posted
   attribute :created_by, String  # Key of user who created this post
 
   attribute :reply_to, String, :default => ""  # Optional key of parent post

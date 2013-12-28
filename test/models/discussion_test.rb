@@ -23,9 +23,19 @@ require 'test_helper'
 class DiscussionTest < ActiveSupport::TestCase
   describe "a Discussion Thread" do
     it "exists" do
-      discussion_name = 'Test discussion'
-      discussion = Discussion.new(name: discussion_name)
-      discussion.name.must_equal discussion_name
+      discussion = Discussion.new(name: 'Test discussion')
+      assert discussion.active?, "Discussion should be active by default"
+      refute discussion.has_replies?, "A newly created thread should have no replies"
+    end
+    
+    it "checks for required fields" do
+      discussion = Discussion.new
+      refute discussion.valid?, "A discussion needs a name, forum key, author key and post key to be valid"
+      discussion.name = 'Test discussion'
+      discussion.forum_key = 'forum-123'
+      discussion.initial_post_key = 'post-123'
+      discussion.created_by = 'user-123'
+      assert discussion.valid?
     end
   end
 end
