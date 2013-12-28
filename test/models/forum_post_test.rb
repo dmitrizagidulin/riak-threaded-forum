@@ -25,5 +25,20 @@ class ForumPostTest < ActiveSupport::TestCase
     it "exists" do
       post = ForumPost.new name: 'New Test Message'
     end
+    
+    it "can be posted as a reply to a discussion" do
+      forum = sample_forum
+      author = registered_user
+      discussion = sample_discussion
+      post_params = { 
+        name: 'This is a reply to an existing discussion',
+        body: 'Discussion reply body goes here'
+      }
+      post = ForumPost.reply_to_discussion(discussion, post_params)
+      post.discussion_key.must_equal discussion.key
+      post.forum_key.must_equal forum.key
+      post.created_by.must_equal author.key
+      post.thread_path.wont_be_empty
+    end
   end
 end

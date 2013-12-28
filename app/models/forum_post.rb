@@ -114,4 +114,15 @@ class ForumPost
     end
     post
   end
+  
+  def self.reply_to_discussion(discussion, forum_post_params={})
+    post = ForumPost.new(forum_post_params)
+    post.author = discussion.author
+    post.forum = discussion.forum
+    post.discussion_key = discussion.key
+    post.reply_to = discussion.initial_post_key
+    # Parent post is not a reply, but is a top level post
+    post.thread_path = "#{post.reply_to}/"
+    post
+  end
 end
