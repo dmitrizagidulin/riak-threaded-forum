@@ -39,6 +39,12 @@ class DiscussionTest < ActiveSupport::TestCase
     end
   end
   
+  it "has a sample_discussion test_helper method" do
+    discussion = sample_discussion
+    assert discussion.valid?
+    assert discussion.initial_post.valid?
+  end
+  
   it "belongs to a forum" do
     discussion = Discussion.new name: 'Test discussion'
     forum = sample_forum()

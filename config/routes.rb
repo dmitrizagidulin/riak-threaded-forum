@@ -8,6 +8,13 @@ RiakThreadedForum::Application.routes.draw do
   get "home" => "user_home#index"
   get "user_home/index"
   
+  controller :discussions do
+    get 'forums/:forum_key/discussions/new' => :new
+    get 'forums/:forum_key/discussions/:discussion_key/reply_to/:reply_to_post' => :reply
+    post 'forums/:forum_key/discussions' => :create
+    get 'forums/:forum_key/discussions/:id' => :show
+  end
+  
   controller :forum_posts do
     get 'forums/:forum_key/posts/new' => :new
     get 'forums/:forum_key/posts/:reply_to_post/reply' => :reply
@@ -21,6 +28,7 @@ RiakThreadedForum::Application.routes.draw do
   end
   
   resources :forums
+  resources :discussions
   resources :forum_posts
   resources :users
   

@@ -19,19 +19,36 @@ class ActiveSupport::TestCase
   end
 end
 
+def sample_discussion
+  forum = sample_forum
+  user = registered_user
+  post = sample_new_post
+  discussion = Discussion.new
+  discussion.initialize_from_post(post)
+  discussion
+end
+
 def sample_forum
-  forum = Forum.new
+  forum = Forum.new(name: 'Distributed Systems Discussions')
   forum.key = 'forum-1'
   forum
+end
+
+def sample_new_post_params
+  post_params = { 
+    name: 'Test post that starts a new discussion',
+    body: 'Test post contents are updated via unit tests, do not be alarmed.'
+  }
 end
 
 def sample_new_post
   forum = sample_forum
   user = registered_user
-  forum_post = ForumPost.new name: 'Test Post'
-  forum_post.key = 'post-123'
-  forum_post.forum_key = forum.key
-  forum_post.created_by = user.key
-  forum_post.body = 'Test post contents are updated via unit tests, do not be alarmed.'
+  test_post_key = 'post-123'
+  forum_post = ForumPost.new(sample_new_post_params)
+  forum_post.key = test_post_key
+  forum_post.forum = forum
+  forum_post.author = user
+  forum_post.discussion_key = test_post_key
   forum_post
 end

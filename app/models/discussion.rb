@@ -44,6 +44,21 @@ class Discussion
     ForumPost.all_for_discussion(self.key)
   end
 
+  def author
+    @author ||= User.find(self.created_by) unless self.created_by.blank?
+  end
+  
+  # Used for caching the author's User instance
+  # Since this is not a document +attribute+, it will not be serialized to JSON
+  def author=(user)
+    @author = user
+    self.created_by = user.key
+  end
+  
+  def forum
+    @forum ||= Forum.find(self.forum_key) unless self.forum_key.blank?
+  end
+  
   def forum=(forum)
     @forum = forum
     self.forum_key = forum.key
@@ -56,6 +71,14 @@ class Discussion
   def initial_post=(post)
     @initial_post = post
     self.initial_post_key = post.key
+  end
+  
+  def initialize_from_post(post)
+    self.key = post.key  # Done for convenience / to keep the two in synch
+    self.initial_post = post
+    self.name = post.name
+    self.forum = post.forum
+    self.author = post.author
   end
   
   def self.all
@@ -75,20 +98,17 @@ class Discussion
   # @param post_params [Hash] A new post to a forum that starts a thread
   # @param author [User] Author of post (usually current logged in user)
   # @param forum [Forum] Forum instance to which this discussion belongs
+  # @param post_key [String,nil] Optional post key. If missing, auto-generated via UUID
   # @return [Discussion]
-  def self.new_from_post(post_params, author, forum)
+  def self.new_from_post(post_params, author, forum, post_key=nil)
     post = ForumPost.new(post_params)
-    post.key = ForumPost.generate_uuid()  # Generate key, it will be needed below
-    post.created_by = author.key
-    post.forum_key = forum.key
+    post.key = post_key || ForumPost.generate_uuid()  # Generate key, it will be needed below
+    post.author = author
+    post.forum = forum
     
     discussion = Discussion.new
-    discussion.key = post.key  # Done for convenience / to keep the two in synch
-    discussion.initial_post = post
+    discussion.initialize_from_post(post)
     post.discussion_key = discussion.key
-    discussion.name = post.name
-    discussion.forum = forum
-    discussion.created_by = author.key
     discussion
   end
 end

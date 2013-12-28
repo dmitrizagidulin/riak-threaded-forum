@@ -21,12 +21,6 @@
 class ForumPost
   include RiakJson::ActiveDocument
   
-  # Used for caching the post author's User instance
-  # Since this is not a document +attribute+, it will not be serialized to JSON
-  attr_accessor :author
-  # Used for caching the post's forum instance
-  attr_accessor :forum
-  
   # Document Attributes
   attribute :name, String  # Post title
   attribute :body, String, :default => ""  # Post body
@@ -42,13 +36,30 @@ class ForumPost
   
   validates_presence_of :name, :forum_key, :created_by
   
+  def author
+    @author ||= User.find(self.created_by) unless self.created_by.blank?
+  end
+  
+  # Used for caching the author's User instance
+  # Since this is not a document +attribute+, it will not be serialized to JSON
+  def author=(user)
+    @author = user
+    self.created_by = user.key
+  end
+  
   def forum
-    Forum.find(self.forum_key)
+    @forum ||= Forum.find(self.forum_key) unless self.forum_key.blank?
+  end
+  
+  # Used for caching the post author's User instance
+  # Since this is not a document +attribute+, it will not be serialized to JSON
+  def forum=(forum)
+    @forum = forum
+    self.forum_key = forum.key
   end
   
   def username
-    user = User.find(self.created_by)
-    user.username if user
+    self.author.username if self.author
   end
   
   # Is this post a reply to another post?

@@ -2,8 +2,7 @@ require 'test_helper'
 
 class ForumPostsControllerTest < ActionController::TestCase
   setup do
-    @forum = Forum.new(name: 'Distributed Systems Discussions')
-    @forum.key = 'forum-1'
+    @forum = sample_forum
     @forum_post = ForumPost.new name: 'Test Post'
     @forum_post.key = 'post-123'
     @forum_post.body = 'Test post contents are updated via unit tests, do not be alarmed.'
@@ -40,12 +39,6 @@ class ForumPostsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:reply_to_post)
     assert_response :success
   end
-  
-#  test "should create forum_post" do
-#    post :create, forum_post: {  }
-#
-#    assert_redirected_to forum_post_path(assigns(:forum_post))
-#  end
 
   test "should show forum_post" do
     get :show, id: @forum_post

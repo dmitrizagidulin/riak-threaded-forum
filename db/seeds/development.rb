@@ -41,7 +41,8 @@ post_params = {
   body: 'Test post contents are updated via unit tests, do not be alarmed.'
 }
 # Create a new discussion object (and its initial post object)
-discussion = Discussion.new_from_post(post_params, user, forum)
+test_post_key = 'post-123'
+discussion = Discussion.new_from_post(post_params, user, forum, test_post_key)
 forum_post = discussion.initial_post
 forum_post.save
 discussion.save
