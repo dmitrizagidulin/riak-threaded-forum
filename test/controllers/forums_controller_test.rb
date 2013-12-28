@@ -31,7 +31,7 @@ class ForumsControllerTest < ActionController::TestCase
 
   test "should show forum" do
     get :show, id: @forum
-    assert_not_nil assigns(:posts)
+    assert_not_nil assigns(:discussions)
     assert_response :success
   end
 

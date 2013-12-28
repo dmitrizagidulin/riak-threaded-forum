@@ -3,10 +3,8 @@ require 'test_helper'
 class ForumPostsControllerTest < ActionController::TestCase
   setup do
     @forum = sample_forum
-    @forum_post = ForumPost.new name: 'Test Post'
-    @forum_post.key = 'post-123'
-    @forum_post.body = 'Test post contents are updated via unit tests, do not be alarmed.'
-    @forum_post
+    @discussion = sample_discussion
+    @forum_post = sample_new_post
   end
 
   test "should get index" do
@@ -29,11 +27,11 @@ class ForumPostsControllerTest < ActionController::TestCase
 
   test "should reply to a post" do
     # Not logged in
-    get :reply, {:reply_to_post => @forum_post.key }
+    get :reply, {:reply_to_post => @forum_post.key, :discussion_key => @discussion.key, :forum_key => @forum.key }
     assert_redirected_to login_path
     # Logged in
     login_as(registered_user.key)
-    get :reply, {:reply_to_post => @forum_post.key }
+    get :reply, {:reply_to_post => @forum_post.key, :discussion_key => @discussion.key, :forum_key => @forum.key }
     assert_not_nil assigns(:forum), "A post can only be made to a forum"
     assert_not_nil assigns(:current_user)
     assert_not_nil assigns(:reply_to_post)

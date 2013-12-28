@@ -9,22 +9,20 @@ RiakThreadedForum::Application.routes.draw do
   get "user_home/index"
   
   controller :discussions do
-    get 'forums/:forum_key/discussions/new' => :new
-    get 'forums/:forum_key/discussions/:discussion_key/reply_to/:reply_to_post' => :reply
-    post 'forums/:forum_key/discussions' => :create
     get 'forums/:forum_key/discussions/:id' => :show
+    get 'forums/:forum_key/discussions/:id/posts' => :show
   end
   
   controller :forum_posts do
-    get 'forums/:forum_key/posts/new' => :new
-    get 'forums/:forum_key/posts/:reply_to_post/reply' => :reply
-    post 'forums/:forum_key/posts' => :create
-    get 'forums/:forum_key/posts/:id' => :show
-    get 'forum_posts/:reply_to_post/reply' => :reply
+    get 'forums/:forum_key/discussions/new' => :new
+    get 'forums/:forum_key/discussions/:discussion_key/reply_to/:reply_to_post' => :reply
+    post 'forums/:forum_key/discussions' => :create
+    get 'forums/:forum_key/discussions/:discussion_id/posts/:id' => :show
   end
   
   controller :forums do
     get 'forums/:id/posts' => :show
+    get 'forums/:id/discussions' => :show
   end
   
   resources :forums

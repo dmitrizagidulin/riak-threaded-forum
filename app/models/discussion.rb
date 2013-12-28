@@ -81,6 +81,10 @@ class Discussion
     self.author = post.author
   end
   
+  def username
+    self.author.username if self.author
+  end
+  
   def self.all
     self.all_for_field(:active)
   end

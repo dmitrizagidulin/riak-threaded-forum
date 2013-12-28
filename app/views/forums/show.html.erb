@@ -4,21 +4,21 @@
 <h4>Forum: <%= @forum.name %></h4>
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'New Post', "/forums/#{@forum.key}/posts/new", class: 'btn' %>
+<%= link_to 'New Post', "/forums/#{@forum.key}/discussions/new", class: 'btn' %>
 
-<% @posts.each do | post | %>
+<% @discussions.each do | discussion | %>
 <div class="post-head">
-<div class="post-name"><%= post.name %></div>
-<span class="muted small"><%= link_to '#', "/forums/#{@forum.key}/posts/#{post.key}" %></span>
+<div class="post-name"><%= discussion.name %></div>
+<span class="muted small"><%= link_to '#', "/forums/#{@forum.key}/discussions/#{discussion.key}" %></span>
 <span class="post-author-label muted">Posted by:</span>
-<span class="post-author muted"><%= post.username %></span>
+<span class="post-author muted"><%= discussion.username %></span>
 </div>
 <div class="post-contents">
 	<div class="post-body">
-	<%= post.body %>
+	
 	</div>
 	<div class="post-actions">
-	<%= link_to 'reply', "/forums/#{@forum.key}/posts/#{post.key}/reply", class: 'btn btn-mini' %>
+	<%= link_to 'reply', "/forums/#{@forum.key}/discussions/#{discussion.key}/reply", class: 'btn btn-mini' %>
 	</div>
 </div>
 <% end %>
