@@ -31,6 +31,7 @@ class ForumPost
   attribute :name, String  # Post title
   attribute :body, String, :default => ""  # Post body
   attribute :forum_key, String  # Forum to which this was posted
+  attribute :discussion_key, String  # Key of discussion thread to which this post belongs
   attribute :created_by, String  # Key of user who created this post
 
   attribute :reply_to, String, :default => ""  # Optional key of parent post
@@ -66,6 +67,11 @@ class ForumPost
       query['$sort'] = {'thread_path' => 1}
     end
     self.where(query)
+  end
+  
+  # Generates a UUID for use as the id/key
+  def self.generate_uuid
+    SecureRandom.uuid.gsub(/-/, '')
   end
   
   def self.reply_to(reply_to_post, user, forum_post_params={})

@@ -49,11 +49,25 @@ class DiscussionTest < ActiveSupport::TestCase
   it "is created by posting to a forum" do
     forum = sample_forum
     author = registered_user
-    post = sample_new_post
-    discussion = Discussion.new_from_post(post, author, forum)
-    discussion.name.must_equal post.name
-    discussion.forum_key.must_equal forum.key
-    discussion.created_by.must_equal author.key
+    post_params = { 
+      name: 'Test post that starts a new discussion',
+      body: 'Post body goes here'
+    }
+    # Create a new discussion object (and its initial post object)
+    discussion = Discussion.new_from_post(post_params, author, forum)
+    post = discussion.initial_post
+    # Both should be valid
+    assert post.valid?
+    assert discussion.valid?
+    # Both should have the same key, and have references to each other
+    discussion.key.must_equal post.key, "A discussion and its initial post should have the same key, for convenience"
     discussion.initial_post_key.must_equal post.key
+    post.discussion_key.must_equal discussion.key
+    # Check that the forum key is initialized in both objects
+    discussion.forum_key.must_equal forum.key
+    post.forum_key.must_equal forum.key
+    # Names and author key should be the same
+    discussion.name.must_equal post.name
+    discussion.created_by.must_equal author.key
   end
 end
