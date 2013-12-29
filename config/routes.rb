@@ -9,18 +9,17 @@ RiakThreadedForum::Application.routes.draw do
   get "user_home/index"
 
   controller :forums do
-    get 'forums/:id/discussions' => :show
+    get 'forums/:id/discussions' => :show  # To avoid error when URL chopping
+  end
+
+  resources :discussions do
+    resources :forum_posts
   end
   
   resources :forums do
     resources :discussions, only: [:show, :new, :create]
   end
-    
-  controller :discussions do
-#    get 'forums/:forum_key/discussions/:id' => :show
-    get 'forums/:forum_key/discussions/:id/posts' => :show
-#    get 'forums/:forum_key/discussions/new' => :new
-  end
+  
   
   controller :forum_posts do
     get 'forums/:forum_key/discussions/:discussion_key/reply' => :new_reply_discussion
@@ -30,8 +29,6 @@ RiakThreadedForum::Application.routes.draw do
     post 'forum_posts' => :create
   end
   
-
-#  resources :discussions
   resources :forum_posts
   resources :users
   

@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-< <%= link_to @forum.name, @forum %>
+< <%= link_to 'Back to Discussion', url_for([@forum, @discussion]) %>
 
-<h4>Post: <%= @forum_post.name %></h4>
+<h4><%= @forum_post.name %></h4>
 
 <%= link_to 'Edit', edit_forum_post_path(@forum_post), class: 'btn' %>
 

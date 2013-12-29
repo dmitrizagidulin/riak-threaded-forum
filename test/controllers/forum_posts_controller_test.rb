@@ -46,7 +46,8 @@ class ForumPostsControllerTest < ActionController::TestCase
   end
 
   test "should show forum_post" do
-    get :show, id: @forum_post
+    get :show, { id: @forum_post, discussion_id: @discussion }
+    assert_not_nil assigns(:discussion)
     assert_not_nil assigns(:forum), "A post can only be made to a forum"
     assert_not_nil assigns(:author_name)
     assert_response :success
@@ -63,17 +64,4 @@ class ForumPostsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:current_user)
     assert_response :success
   end
-
-#  test "should update forum_post" do
-#    patch :update, id: @forum_post, forum_post: {  }
-#    assert_redirected_to forum_post_path(assigns(:forum_post))
-#  end
-#
-#  test "should destroy forum_post" do
-#    assert_difference('ForumPost.count', -1) do
-#      delete :destroy, id: @forum_post
-#    end
-#
-#    assert_redirected_to forum_posts_path
-#  end
 end

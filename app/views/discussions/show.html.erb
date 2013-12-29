@@ -8,7 +8,7 @@ Forum: <%= link_to "#{@forum.name}", @forum %>
 <div class="post-container" id="<%= post.key %>">
   <div class="post-head">
   <div class="post-name"><%= post.name %></div>
-  <span class="muted small"><%= link_to '#', "/forums/#{@forum.key}/discussions/#{@discussion.key}/posts/#{post.key}" %></span>
+  <span class="muted small"><%= link_to '#', url_for([@discussion, post]) %></span>
   <span class="post-author-label muted">Posted by:</span>
   <span class="post-author muted"><%= post.username %></span>
   </div>

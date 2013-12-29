@@ -12,6 +12,7 @@ class ForumPostsController < ApplicationController
   # GET /forums/456/discussions/789/posts/1
   # GET /forum_posts/1.json
   def show
+    @discussion = Discussion.find(params[:discussion_id])
     @forum = Forum.find(@forum_post.forum_key)
     @author_name = @forum_post.username
   end
