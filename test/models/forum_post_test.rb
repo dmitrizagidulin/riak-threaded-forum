@@ -34,7 +34,7 @@ class ForumPostTest < ActiveSupport::TestCase
         name: 'This is a reply to an existing discussion',
         body: 'Discussion reply body goes here'
       }
-      post = ForumPost.reply_to_discussion(discussion, post_params)
+      post = ForumPost.reply_to_discussion(post_params, discussion, author)
       post.discussion_key.must_equal discussion.key
       post.forum_key.must_equal forum.key
       post.created_by.must_equal author.key

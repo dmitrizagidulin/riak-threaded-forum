@@ -7,26 +7,31 @@ RiakThreadedForum::Application.routes.draw do
   get "welcome/index"
   get "home" => "user_home#index"
   get "user_home/index"
-  
-  controller :discussions do
-    get 'forums/:forum_key/discussions/:id' => :show
-    get 'forums/:forum_key/discussions/:id/posts' => :show
-  end
-  
-  controller :forum_posts do
-    get 'forums/:forum_key/discussions/new' => :new
-    get 'forums/:forum_key/discussions/:discussion_key/reply_to/:reply_to_post' => :reply
-    post 'forums/:forum_key/discussions' => :create
-    get 'forums/:forum_key/discussions/:discussion_id/posts/:id' => :show
-  end
-  
+
   controller :forums do
-    get 'forums/:id/posts' => :show
     get 'forums/:id/discussions' => :show
   end
   
-  resources :forums
-  resources :discussions
+  resources :forums do
+    resources :discussions, only: [:show, :new, :create]
+  end
+    
+  controller :discussions do
+#    get 'forums/:forum_key/discussions/:id' => :show
+    get 'forums/:forum_key/discussions/:id/posts' => :show
+#    get 'forums/:forum_key/discussions/new' => :new
+  end
+  
+  controller :forum_posts do
+    get 'forums/:forum_key/discussions/:discussion_key/reply' => :new_reply_discussion
+    get 'forums/:forum_key/discussions/:discussion_key/reply_to/:reply_to_post' => :new_reply_post
+    post 'forums/:forum_key/discussions/:discussion_key' => :create
+    get 'forums/:forum_key/discussions/:discussion_id/posts/:id' => :show
+    post 'forum_posts' => :create
+  end
+  
+
+#  resources :discussions
   resources :forum_posts
   resources :users
   

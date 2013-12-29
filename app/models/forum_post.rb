@@ -34,7 +34,7 @@ class ForumPost
   
   attribute :created_at, String, default: proc { DateTime.now.utc.iso8601 }  # Timestamp
   
-  validates_presence_of :name, :forum_key, :created_by
+  validates_presence_of :name, :forum_key, :created_by, :discussion_key
   
   def author
     @author ||= User.find(self.created_by) unless self.created_by.blank?
@@ -66,6 +66,11 @@ class ForumPost
   # @return [Boolean] Returns +true+ if this post is a reply, +false+ if this is a top-level post
   def is_reply?
     self.reply_to.present? && self.indent_level > 0
+  end
+  
+  # Returns true if this post was the original post for a discussion
+  def root_post?
+    (self.discussion_key == self.key) && (self.indent_level == 0)
   end
   
   def self.all
@@ -115,9 +120,10 @@ class ForumPost
     post
   end
   
-  def self.reply_to_discussion(discussion, forum_post_params={})
+  def self.reply_to_discussion(forum_post_params, discussion, author)
     post = ForumPost.new(forum_post_params)
-    post.author = discussion.author
+    post.name ||= "Re: #{discussion.name}"
+    post.author = author
     post.forum = discussion.forum
     post.discussion_key = discussion.key
     post.reply_to = discussion.initial_post_key

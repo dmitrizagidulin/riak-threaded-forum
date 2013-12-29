@@ -5,21 +5,25 @@ Forum: <%= link_to "#{@forum.name}", @forum %>
 
 
 <% @posts.each do | post | %>
-<div class="post-head">
-<div class="post-name"><%= post.name %></div>
-<span class="muted small"><%= link_to '#', "/forums/#{@forum.key}/discussions/#{@discussion.key}/posts/#{post.key}" %></span>
-<span class="post-author-label muted">Posted by:</span>
-<span class="post-author muted"><%= post.username %></span>
-</div>
-<div class="post-contents">
-  <div class="post-body">
-  <%= post.body %>
+<div class="post-container" id="<%= post.key %>">
+  <div class="post-head">
+  <div class="post-name"><%= post.name %></div>
+  <span class="muted small"><%= link_to '#', "/forums/#{@forum.key}/discussions/#{@discussion.key}/posts/#{post.key}" %></span>
+  <span class="post-author-label muted">Posted by:</span>
+  <span class="post-author muted"><%= post.username %></span>
   </div>
-  <div class="post-actions">
-  <%= link_to 'reply', "/forums/#{@forum.key}/discussions/#{@discussion.key}/posts/#{post.key}/reply", class: 'btn btn-mini' %>
+  <div class="post-contents">
+    <div class="post-body">
+    <%= post.body %>
+    </div>
+    <div class="post-actions">
+    <% unless post.root_post? %>
+      <%= link_to 'reply', "/forums/#{@forum.key}/discussions/#{@discussion.key}/posts/#{post.key}/reply", class: 'btn btn-mini' %>
+    <% end %>
+    </div>
   </div>
 </div>
 <% end %>
 
 <br />
-<%= link_to 'New Reply', "/forums/#{@forum.key}/discussions/#{@discussion.key}/new", class: 'btn' %>
+<%= link_to 'New Reply', "/forums/#{@forum.key}/discussions/#{@discussion.key}/reply", class: 'btn' %>

@@ -4,12 +4,13 @@
 <h4>Forum: <%= @forum.name %></h4>
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'New Post', "/forums/#{@forum.key}/discussions/new", class: 'btn' %>
+<%= link_to 'New Discussion', new_forum_discussion_path(@forum), class: 'btn' %>
 
 <% @discussions.each do | discussion | %>
+<div class="discussion-container" id="<%= discussion.key %>">
 <div class="post-head">
-<div class="post-name"><%= link_to discussion.name, "/forums/#{@forum.key}/discussions/#{discussion.key}" %></div>
-<span class="muted small"><%= link_to '#', "/forums/#{@forum.key}/discussions/#{discussion.key}" %></span>
+<div class="post-name"><%= link_to discussion.name, url_for([@forum, discussion]) %></div>
+<span class="muted small"><%= link_to '#', url_for([@forum, discussion]) %></span>
 <span class="post-author-label muted">Posted by:</span>
 <span class="post-author muted"><%= discussion.username %></span>
 </div>
@@ -20,5 +21,6 @@
 	<div class="post-actions">
 	<%= link_to 'reply', "/forums/#{@forum.key}/discussions/#{discussion.key}/reply", class: 'btn btn-mini' %>
 	</div>
+</div>
 </div>
 <% end %>

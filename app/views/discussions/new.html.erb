@@ -1,4 +1,4 @@
-<h2>New Post</h2>
+<h2>New Discussion</h2>
 <dl class="dl-horizontal">
   <dt>Forum:</dt>
   <dd><%= @forum.name %></dd>
@@ -6,6 +6,6 @@
   <dd><%= @current_user.username %></dd>
 </dl>
 
-<%= render 'form' %>
+<%= render partial: 'forum_posts/form', locals: { create_path: forum_discussions_path(@forum) } %>
 
 <%= link_to 'Back', forum_posts_path %>

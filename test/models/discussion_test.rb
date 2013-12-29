@@ -62,6 +62,7 @@ class DiscussionTest < ActiveSupport::TestCase
     # Create a new discussion object (and its initial post object)
     discussion = Discussion.new_from_post(post_params, author, forum)
     post = discussion.initial_post
+    assert post.root_post?
     # Both should be valid
     assert post.valid?
     assert discussion.valid?
