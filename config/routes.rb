@@ -22,9 +22,8 @@ RiakThreadedForum::Application.routes.draw do
   end
   
   controller :forum_posts do
-    get 'forums/:forum_key/discussions/:discussion_key/reply_to/:reply_to_post' => :new_reply_post
-    post 'forums/:forum_key/discussions/:discussion_key' => :create
-    get 'forums/:forum_key/discussions/:discussion_id/posts/:id' => :show
+    get 'discussions/:discussion_id/forum_posts/:reply_to_post/reply' => :reply
+    post 'discussions/:discussion_id/forum_posts/:reply_to_post/reply' => :create_reply
   end
   
   resources :users

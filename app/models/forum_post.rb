@@ -101,6 +101,7 @@ class ForumPost
     # TODO: Check to see if reply_to_post is a valid post, raise error otherwise
     post = ForumPost.new(forum_post_params)
     post.created_by = user.key
+    post.discussion_key = reply_to_post.discussion_key
     
     post.forum_key = reply_to_post.forum_key
     post.reply_to = reply_to_post.key
@@ -108,7 +109,11 @@ class ForumPost
     
     # Set the default reply title
     unless forum_post_params.include? :name
-      post.name = "Re: #{reply_to_post.name}"
+      if reply_to_post.name.start_with? "Re:"
+        post.name = reply_to_post.name
+      else
+        post.name = "Re: #{reply_to_post.name}"
+      end
     end
     
     if reply_to_post.is_reply?

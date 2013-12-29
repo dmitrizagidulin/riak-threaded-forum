@@ -18,10 +18,11 @@ class ForumPostsController < ApplicationController
   end
 
   # GET /forums/456/discussions/789/posts/123/reply
-  def new_reply_post
+  # Loads New Reply to Post form
+  def reply
     @reply_to_post = ForumPost.find(params[:reply_to_post])
     @forum = Forum.find(@reply_to_post.forum_key)
-    @discussion = Discussion.find(params[:discussion_key])
+    @discussion = Discussion.find(params[:discussion_id])
     @current_user = current_user
     @forum_post = ForumPost.reply_to(@reply_to_post, @current_user)
   end
@@ -61,6 +62,28 @@ class ForumPostsController < ApplicationController
     end
   end
 
+  # POST /forum_posts
+  # POST /forum_posts.json
+  # Creates a new Reply to a Post
+  def create_reply
+    @discussion = Discussion.find(params[:discussion_id])
+    @forum = Forum.find(@discussion.forum_key)
+    @reply_to_post = ForumPost.find(params[:forum_post][:reply_to_post])
+    @current_user = current_user
+    @forum_post = ForumPost.reply_to(@reply_to_post, @current_user, new_reply_params)
+
+    respond_to do |format|
+      if @forum_post.save
+        redirect_url = "/discussions/#{@discussion.key}/##{@forum_post.key}"
+        format.html { redirect_to redirect_url, notice: 'Forum post was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @forum_post }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @forum_post.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
   # PATCH/PUT /forum_posts/1
   # PATCH/PUT /forum_posts/1.json
   def update

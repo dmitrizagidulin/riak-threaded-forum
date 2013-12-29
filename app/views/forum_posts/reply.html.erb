@@ -10,6 +10,6 @@
 <% end %>
 </dl>
 
-<%= render partial: 'form', locals: { create_path: "/test/" } %>
+<%= render partial: 'form', locals: { create_path: "/discussions/#{@discussion.key}/forum_posts/#{@reply_to_post.key}/reply" } %>
 
 <%= link_to 'Back', forum_posts_path %>

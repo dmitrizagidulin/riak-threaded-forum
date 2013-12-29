@@ -33,11 +33,11 @@ class ForumPostsControllerTest < ActionController::TestCase
   
   test "should reply to a post" do
     # Not logged in
-    get :new_reply_post, {:reply_to_post => @forum_post.key, :discussion_key => @discussion.key, :forum_key => @forum.key }
+    get :reply, {:reply_to_post => @forum_post.key, :discussion_id => @discussion.key  }
     assert_redirected_to login_path
     # Logged in
     login_as(registered_user.key)
-    get :new_reply_post, {:reply_to_post => @forum_post.key, :discussion_key => @discussion.key, :forum_key => @forum.key }
+    get :reply, {:reply_to_post => @forum_post.key, :discussion_id => @discussion.key   }
     assert_not_nil assigns(:forum), "A post can only be made to a forum"
     assert_not_nil assigns(:current_user)
     assert_not_nil assigns(:discussion)

@@ -18,7 +18,7 @@ Forum: <%= link_to "#{@forum.name}", @forum %>
     </div>
     <div class="post-actions">
     <% unless post.root_post? %>
-      <%= link_to 'reply', "/forums/#{@forum.key}/discussions/#{@discussion.key}/posts/#{post.key}/reply", class: 'btn btn-mini' %>
+      <%= link_to 'reply', "/discussions/#{@discussion.key}/forum_posts/#{post.key}/reply", class: 'btn btn-mini' %>
     <% end %>
     </div>
   </div>
