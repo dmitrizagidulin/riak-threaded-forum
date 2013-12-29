@@ -6,21 +6,15 @@
 
 <%= link_to 'New Discussion', new_forum_discussion_path(@forum), class: 'btn' %>
 
+<table class="table table-hover discussions-list">
+<tbody>
 <% @discussions.each do | discussion | %>
-<div class="discussion-container" id="<%= discussion.key %>">
-<div class="post-head">
-<div class="post-name"><%= link_to discussion.name, url_for([@forum, discussion]) %></div>
-<span class="muted small"><%= link_to '#', url_for([@forum, discussion]) %></span>
-<span class="post-author-label muted">Posted by:</span>
-<span class="post-author muted"><%= discussion.username %></span>
-</div>
-<div class="post-contents">
-	<div class="post-body">
-	
-	</div>
-	<div class="post-actions">
-	<%= link_to 'reply', "/forums/#{@forum.key}/discussions/#{discussion.key}/reply", class: 'btn btn-mini' %>
-	</div>
-</div>
-</div>
+<tr>
+  <td>
+    <%= link_to discussion.name, url_for([@forum, discussion]) %>
+  </td>
+  <td><%= discussion.username %></td>
+</tr>
 <% end %>
+</tbody>
+</table>
