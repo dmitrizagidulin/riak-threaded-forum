@@ -40,67 +40,18 @@ class ForumPostsController < ApplicationController
     @forum = Forum.find(@forum_post.forum_key)
     @current_user = current_user
   end
-
-  # POST /forums/456/discussions/
-  def create_discussion
-    reply_to_post_key = params[:forum_post][:reply_to_post]
-    discussion_key = params[:forum_post][:discussion_key]
-    @forum = Forum.find(params[:forum_post][:forum_key])
-    if reply_to_post_key.present?
-      # A reply to an existing post
-      @reply_to_post = ForumPost.find(reply_to_post_key)
-      @discussion = Discussion.find(@reply_to_post.discussion_key)
-      @forum_post = ForumPost.reply_to(@reply_to_post, current_user, new_reply_params)
-    elsif discussion_key.present?
-      # A reply to an existing discussion
-      @discussion = Discussion.find(discussion_key)
-      @forum_post = ForumPost.reply_to_discussion(new_reply_params, @discussion, current_user)
-    else
-      # Not a reply, but start of a new discussion
-      @discussion = Discussion.new_from_post(new_post_params, current_user, @forum)
-      @forum_post = @discussion.initial_post
-      @discussion.save!
-    end
-
-    respond_to do |format|
-      if @forum_post.save
-        redirect_url = "/forums/#{@forum.key}/discussions/#{@discussion.key}##{@forum_post.key}"
-        format.html { redirect_to redirect_url, notice: 'Forum post was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @forum_post }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @forum_post.errors, status: :unprocessable_entity }
-      end
-    end
-  end
   
   # POST /forum_posts
   # POST /forum_posts.json
+  # Creates a new Reply to a Discussion
   def create
-    puts "In create, params:"
-    puts params[:forum_post]
-    reply_to_post_key = params[:forum_post][:reply_to_post]
-    discussion_key = params[:forum_post][:discussion_key]
-    @forum = Forum.find(params[:forum_post][:forum_key])
-    if reply_to_post_key.present?
-      # A reply to an existing post
-      @reply_to_post = ForumPost.find(reply_to_post_key)
-      @discussion = Discussion.find(@reply_to_post.discussion_key)
-      @forum_post = ForumPost.reply_to(@reply_to_post, current_user, new_reply_params)
-    elsif discussion_key.present?
-      # A reply to an existing discussion
-      @discussion = Discussion.find(discussion_key)
-      @forum_post = ForumPost.reply_to_discussion(new_reply_params, @discussion, current_user)
-    else
-      # Not a reply, but start of a new discussion
-      @discussion = Discussion.new_from_post(new_post_params, current_user, @forum)
-      @forum_post = @discussion.initial_post
-      @discussion.save!
-    end
+    @discussion = Discussion.find(params[:discussion_id])
+    @forum = Forum.find(@discussion.forum_key)
+    @forum_post = ForumPost.reply_to_discussion(new_post_params, @discussion, current_user)
 
     respond_to do |format|
       if @forum_post.save
-        redirect_url = "/forums/#{@forum.key}/discussions/#{@discussion.key}##{@forum_post.key}"
+        redirect_url = "/discussions/#{@discussion.key}/##{@forum_post.key}"
         format.html { redirect_to redirect_url, notice: 'Forum post was successfully created.' }
         format.json { render action: 'show', status: :created, location: @forum_post }
       else
@@ -142,7 +93,7 @@ class ForumPostsController < ApplicationController
     
     # Never trust parameters from the scary internet, only allow the white list through.
     def new_post_params
-      params[:forum_post].permit(:forum_key, :name, :body)
+      params[:forum_post].permit(:name, :body)
     end
     
     def new_reply_params
