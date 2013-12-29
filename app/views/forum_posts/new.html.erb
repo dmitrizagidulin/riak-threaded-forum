@@ -1,0 +1,11 @@
+<h2>New Reply to Discussion</h2>
+<dl class="dl-horizontal">
+  <dt>Forum:</dt>
+  <dd><%= @forum.name %></dd>
+  <dt>Discussion:</dt>
+  <dd><%= @discussion.name %></dd>
+  <dt>Author:</dt>
+  <dd><%= @current_user.username %></dd>
+</dl>
+
+<%= render partial: 'forum_posts/form', locals: { create_path: discussion_forum_posts_path(@discussion) } %>

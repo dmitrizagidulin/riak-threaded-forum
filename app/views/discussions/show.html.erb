@@ -26,4 +26,4 @@ Forum: <%= link_to "#{@forum.name}", @forum %>
 <% end %>
 
 <br />
-<%= link_to 'New Reply', "/forums/#{@forum.key}/discussions/#{@discussion.key}/reply", class: 'btn' %>
+<%= link_to 'New Reply', new_discussion_forum_post_path(@discussion), class: 'btn' %>

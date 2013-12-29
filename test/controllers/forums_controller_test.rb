@@ -6,12 +6,6 @@ class ForumsControllerTest < ActionController::TestCase
     @forum.key = 'forum-1'
     @forum
   end
-  
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:forums)
-  end
 
   test "should get new" do
     # Not logged in

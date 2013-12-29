@@ -26,9 +26,10 @@ class ForumPostsController < ApplicationController
     @forum_post = ForumPost.reply_to(@reply_to_post, @current_user)
   end
   
-  # GET /forums/456/discussions/789/reply
-  def new_reply_discussion
-    @discussion = Discussion.find(params[:discussion_key])
+  # GET /discussions/789/forum_posts/new
+  # Loads New Reply to Discussion form
+  def new
+    @discussion = Discussion.find(params[:discussion_id])
     @forum = Forum.find(@discussion.forum_key)
     @current_user = current_user
     @forum_post = ForumPost.reply_to_discussion(new_post_params={}, @discussion, @current_user)

@@ -13,23 +13,20 @@ RiakThreadedForum::Application.routes.draw do
   end
 
   resources :discussions do
-    resources :forum_posts
+    resources :forum_posts, only: [:show, :new, :create, :reply, :create_reply]
   end
+  resources :forum_posts, only: [:edit, :update, :destroy, :index]
   
   resources :forums do
     resources :discussions, only: [:show, :new, :create]
   end
   
-  
   controller :forum_posts do
-    get 'forums/:forum_key/discussions/:discussion_key/reply' => :new_reply_discussion
     get 'forums/:forum_key/discussions/:discussion_key/reply_to/:reply_to_post' => :new_reply_post
     post 'forums/:forum_key/discussions/:discussion_key' => :create
     get 'forums/:forum_key/discussions/:discussion_id/posts/:id' => :show
-    post 'forum_posts' => :create
   end
   
-  resources :forum_posts
   resources :users
   
   # The priority is based upon order of creation: first created -> highest priority.

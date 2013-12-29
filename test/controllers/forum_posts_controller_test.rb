@@ -18,18 +18,18 @@ class ForumPostsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:forum_posts)
   end
 
-#  test "should reply to a discussion" do
-#    # Not logged in
-#    get :new_reply_discussion, { :discussion_key => @discussion.key, :forum_key => @forum.key }
-#    assert_redirected_to login_path
-#    # Logged in
-#    login_as(registered_user.key)
-#    get :new_reply_discussion, { :discussion_key => @discussion.key, :forum_key => @forum.key }
-#    assert_not_nil assigns(:forum)
-#    assert_not_nil assigns(:current_user)
-#    assert_not_nil assigns(:discussion)
-#    assert_response :success
-#  end
+  test "should reply to a discussion" do
+    # Not logged in
+    get :new, { :discussion_id => @discussion.key }
+    assert_redirected_to login_path
+    # Logged in
+    login_as(registered_user.key)
+    get :new, { :discussion_id => @discussion.key }
+    assert_not_nil assigns(:forum)
+    assert_not_nil assigns(:current_user)
+    assert_not_nil assigns(:discussion)
+    assert_response :success
+  end
   
   test "should reply to a post" do
     # Not logged in
