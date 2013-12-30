@@ -21,6 +21,8 @@
 class ForumPost
   include RiakJson::ActiveDocument
   
+  MAX_INDENT_LEVEL = 3
+  
   # Document Attributes
   attribute :name, String  # Post title
   attribute :body, String, :default => ""  # Post body
@@ -67,7 +69,7 @@ class ForumPost
   end
   
   def thread_indent_level
-    lvl = [self.indent_level, 3].min
+    lvl = [self.indent_level, ForumPost::MAX_INDENT_LEVEL].min
     if lvl > 0
       "indent-#{lvl}"
     end
