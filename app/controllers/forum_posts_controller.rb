@@ -52,7 +52,8 @@ class ForumPostsController < ApplicationController
 
     respond_to do |format|
       if @forum_post.save
-        redirect_url = "/discussions/#{@discussion.key}/##{@forum_post.key}"
+#        redirect_url = "/discussions/#{@discussion.key}/##{@forum_post.key}"
+        redirect_url = url_for([@discussion, @forum_post])
         format.html { redirect_to redirect_url, notice: 'Forum post was successfully created.' }
         format.json { render action: 'show', status: :created, location: @forum_post }
       else
