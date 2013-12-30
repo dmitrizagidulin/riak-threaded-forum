@@ -38,6 +38,17 @@ class DiscussionsController < ApplicationController
   def show
     @forum = Forum.find(@discussion.forum_key)
     @posts = @discussion.all_posts
+    @posts_hash = {}
+    @top_level_replies = []
+    @posts.each { | p | @posts_hash[p.key] = p }
+    @posts.map do | p |
+      if p.top_level_reply?
+        @top_level_replies << p
+      else
+        parent = @posts_hash[p.reply_to]
+        parent.replies << p.key
+      end
+    end
   end
 
   private

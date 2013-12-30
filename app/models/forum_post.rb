@@ -47,6 +47,10 @@ class ForumPost
     self.created_by = user.key
   end
   
+  def replies
+    @replies ||= []
+  end
+  
   def forum
     @forum ||= Forum.find(self.forum_key) unless self.forum_key.blank?
   end
@@ -62,10 +66,21 @@ class ForumPost
     self.author.username if self.author
   end
   
+  def thread_indent_level
+    lvl = [self.indent_level, 3].min
+    if lvl > 0
+      "indent-#{lvl}"
+    end
+  end
+  
+  def top_level_reply?
+    self.indent_level == 0
+  end
+  
   # Is this post a reply to another post?
   # @return [Boolean] Returns +true+ if this post is a reply, +false+ if this is a top-level post
   def is_reply?
-    self.reply_to.present? && self.indent_level > 0
+    !self.root_post?
   end
   
   # Returns true if this post was the original post for a discussion
@@ -115,13 +130,7 @@ class ForumPost
         post.name = "Re: #{reply_to_post.name}"
       end
     end
-    
-    if reply_to_post.is_reply?
-      post.thread_path = "#{reply_to_post.thread_path}/#{reply_to_post.key}/"
-    else
-      # Parent post is not a reply, but is a top level post
-      post.thread_path = "#{reply_to_post.key}/"
-    end
+    post.thread_path = "#{reply_to_post.thread_path}/#{post.key}"
     post
   end
   
@@ -133,7 +142,7 @@ class ForumPost
     post.discussion_key = discussion.key
     post.reply_to = discussion.initial_post_key
     # Parent post is not a reply, but is a top level post
-    post.thread_path = "#{post.reply_to}/"
+    post.thread_path = "#{post.reply_to}/#{post.key}"
     post
   end
 end

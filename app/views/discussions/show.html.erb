@@ -3,26 +3,8 @@ Forum: <%= link_to "#{@forum.name}", @forum %>
 <h4>Discussion: <%= @discussion.name %></h4>
 <p id="notice"><%= notice %></p>
 
-
-<% @posts.each do | post | %>
-<div class="post-container" id="<%= post.key %>">
-  <div class="post-head">
-  <div class="post-name"><%= post.name %></div>
-  <span class="muted small"><%= link_to '#', url_for([@discussion, post]) %></span>
-  <span class="post-author-label muted">Posted by:</span>
-  <span class="post-author muted"><%= post.username %></span>
-  </div>
-  <div class="post-contents">
-    <div class="post-body">
-    <%= post.body %>
-    </div>
-    <div class="post-actions">
-    <% unless post.root_post? %>
-      <%= link_to 'reply', "/discussions/#{@discussion.key}/forum_posts/#{post.key}/reply", class: 'btn btn-mini' %>
-    <% end %>
-    </div>
-  </div>
-</div>
+<% @top_level_replies.each do | post | %>
+<%= render partial: 'forum_posts/post', locals: { post: post } %>
 <% end %>
 
 <br />

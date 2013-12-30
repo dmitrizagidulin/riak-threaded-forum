@@ -1,0 +1,24 @@
+<div class="post-container <%= post.thread_indent_level %>" id="<%= post.key %>">
+  <div class="post-head">
+  <div class="post-name"><%= post.name %></div>
+  <span class="muted small"><%= link_to '#', url_for([@discussion, post]) %></span>
+  <span class="post-author-label muted">Posted by:</span>
+  <span class="post-author muted"><%= post.username %></span>
+  <br />
+  <%= post.key %>
+  <%= post.thread_path %>
+  </div>
+  <div class="post-contents">
+    <div class="post-body">
+    <%= post.body %>
+    </div>
+    <div class="post-actions">
+    <% unless post.root_post? %>
+      <%= link_to 'reply', "/discussions/#{@discussion.key}/forum_posts/#{post.key}/reply", class: 'btn btn-mini' %>
+    <% end %>
+    </div>
+  </div>
+</div>
+<% post.replies.each do | reply_key | %>
+  <%= render partial: 'forum_posts/post', locals: { post: @posts_hash[reply_key] } %>
+<% end %>
