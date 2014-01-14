@@ -20,19 +20,19 @@
 
 # Seed Users collection
 puts "Seeding Users for env: #{Rails.env}"
-user = User.new(username: 'registered_user', password: '12345', password_digest: BCrypt::Password.create('12345'))
+user = User.new(username: 'registered_user', password: '12345', password_confirmation: '12345')
 user.key = 'user-1'
-user.save
+user.save!
 
 user = User.new username: 'earl', password: '1234', password_confirmation: '1234'
 user.key = 'earl-123'
-user.save
+user.save!
 
 # Seed Forums collection
 puts "Seeding Forums..."
 forum = Forum.new(name: 'Distributed Systems Discussions')
 forum.key = 'forum-1'
-forum.save
+forum.save!
 
 # Seed ForumPosts collection
 puts "Seeding Forum Discussions and Posts..."
@@ -44,5 +44,5 @@ post_params = {
 test_post_key = 'post-123'
 discussion = Discussion.new_from_post(post_params, user, forum, test_post_key)
 forum_post = discussion.initial_post
-forum_post.save
-discussion.save
+forum_post.save!
+discussion.save!
