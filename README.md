@@ -33,7 +33,7 @@ rake test TEST=test/models/*
 
 ## Screenshots
 Forums:
-![](https://www.dropbox.com/s/u3txl1jcfh02yxg/Screenshot%202014-01-14%2016.15.50.png "Forums index view")
+![](https://dl.dropboxusercontent.com/u/76867066/forums.png "Forums index view")
 
 Threaded messages in a discussion:
-![](https://www.dropbox.com/s/pzexiaaqgfpb9bs/Screenshot%202014-01-14%2016.20.22.png "Discussion show view")
+![](https://dl.dropboxusercontent.com/u/76867066/discussions.png "Discussion show view")
